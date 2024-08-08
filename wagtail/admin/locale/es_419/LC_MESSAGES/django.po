@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -74,6 +74,9 @@ msgstr "Fecha hasta"
 msgid "All"
 msgstr "Todos"
 
+msgid "Collection"
+msgstr "Colección"
+
 msgid "Preferred language"
 msgstr "Idioma preferido"
 
@@ -120,9 +123,6 @@ msgstr "Buscar"
 
 msgid "All collections"
 msgstr "Todas las colecciones"
-
-msgid "Collection"
-msgstr "Colección"
 
 msgid "Parent"
 msgstr "Padre"
@@ -589,9 +589,6 @@ msgstr "Explorar subpáginas de '%(title)s'"
 msgid "Explore"
 msgstr "Explorar"
 
-msgid "Collection privacy"
-msgstr "Privacidad de la colección"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Esta colección ha sido convertida en privada por una colección padre."
 
@@ -629,11 +626,11 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Esta colección no se puede borrar, porque no está vacía. Contiene:"
 
-msgid "Name"
-msgstr "Nombre"
-
 msgid "Saving…"
 msgstr "Guardando..."
+
+msgid "Name"
+msgstr "Nombre"
 
 msgid "Editing"
 msgstr "Editando"

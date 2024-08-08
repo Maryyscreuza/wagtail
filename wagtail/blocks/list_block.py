@@ -151,9 +151,25 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
-    def get_default(self):
-        # wrap with list() so that each invocation of get_default returns a distinct instance
-        return ListValue(self, values=list(self.meta.default))
+    # If a subclass of ListBlock overrides __init__, we cannot assume that the first argument is
+    # the child block, and thus we cannot rely on the conversion applied in construct_from_lookup /
+    # deconstruct_with_lookup to be valid. We set a flag attribute on the __init__ method so that
+    # we can spot this case.
+    __init__.has_child_block_arg = True
+
+    @classmethod
+    def construct_from_lookup(cls, lookup, *args, **kwargs):
+        if getattr(cls.__init__, "has_child_block_arg", False):
+            if args and isinstance(args[0], int):
+                child_block = lookup.get_block(args[0])
+                args = (child_block, *args[1:])
+            else:
+                child_block_kwarg = kwargs.get("child_block")
+                if isinstance(child_block_kwarg, int):
+                    child_block = lookup.get_block(child_block_kwarg)
+                    kwargs["child_block"] = child_block
+
+        return cls(*args, **kwargs)
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data["%s-count" % prefix])
@@ -183,8 +199,7 @@ class ListBlock(Block):
     def clean(self, value):
         # value is expected to be a ListValue, but if it's been assigned through external code it might
         # be a plain list; normalise it to a ListValue
-        if not isinstance(value, ListValue):
-            value = ListValue(self, values=value)
+        value = self.normalize(value)
 
         result = []
         block_errors = {}
@@ -223,6 +238,21 @@ class ListBlock(Block):
             )
 
         return ListValue(self, bound_blocks=result)
+
+    def normalize(self, value):
+        if isinstance(value, ListValue):
+            return value
+        elif isinstance(value, list):
+            return ListValue(
+                self, values=[self.child_block.normalize(x) for x in value]
+            )
+        else:
+            raise TypeError(
+                f"Cannot handle {value!r} (type {type(value)!r}) as a value of a ListBlock"
+            )
+
+    def empty_value(self):
+        return ListValue(self, values=[])
 
     def _item_is_in_block_format(self, item):
         # check a list item retrieved from the database JSON representation to see whether it follows
@@ -385,6 +415,20 @@ class ListBlock(Block):
         errors = super().check(**kwargs)
         errors.extend(self.child_block.check(**kwargs))
         return errors
+
+    def deconstruct_with_lookup(self, lookup):
+        path, args, kwargs = super().deconstruct_with_lookup(lookup)
+        if getattr(self.__init__, "has_child_block_arg", False):
+            if args and isinstance(args[0], Block):
+                block_id = lookup.add_block(args[0])
+                args = (block_id, *args[1:])
+            else:
+                child_block = kwargs.get("child_block")
+                if isinstance(child_block, Block):
+                    block_id = lookup.add_block(child_block)
+                    kwargs["child_block"] = block_id
+
+        return path, args, kwargs
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the

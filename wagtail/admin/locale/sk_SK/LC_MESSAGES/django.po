@@ -4,6 +4,7 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Ivan Waginger <ivan.waginger@gmail.com>, 2024
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Stevo Backor, 2016\n"
+"Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +56,12 @@ msgstr "Dátum od"
 msgid "Date to"
 msgstr "Dátum do"
 
+msgid "Collection"
+msgstr "Kolekcie"
+
+msgid "Tag"
+msgstr "Tag"
+
 msgid "First Name"
 msgstr "Krstné meno"
 
@@ -89,9 +96,6 @@ msgstr "Hľadať"
 
 msgid "All collections"
 msgstr "Všetky kolekcie"
-
-msgid "Collection"
-msgstr "Kolekcie"
 
 msgid "Parent"
 msgstr "Rodič"
@@ -180,6 +184,9 @@ msgstr ""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "Nemôžete skopírovať stránku do seba samej."
+
+msgid "Parent page"
+msgstr "Rodičovská strana"
 
 msgid "Visibility"
 msgstr "Viditeľnosť"
@@ -278,9 +285,6 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 msgid "Explore"
 msgstr "Prehliadať"
 
-msgid "Collection privacy"
-msgstr "Súkromie kolekcie"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou."
 
@@ -308,9 +312,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Táto kolekcia nemôže byť zmazaná, pretože nie je prázdna. Obsahuje:"
 
-msgid "Name"
-msgstr "Názov"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a "
@@ -322,6 +323,9 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
+msgid "No, don't delete"
+msgstr "Nie, nezmazať"
+
 #, python-format
 msgid "Unpublish %(title)s"
 msgstr "Odpublikovať %(title)s"
@@ -331,6 +335,9 @@ msgstr "Áno, odpublikovať"
 
 msgid "No, don't unpublish"
 msgstr "Nie, nepublikovať"
+
+msgid "Actions"
+msgstr "Akcie"
 
 msgid "Update"
 msgstr "Aktualizovať"
@@ -361,9 +368,6 @@ msgstr ""
 
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
-
-msgid "Actions"
-msgstr "Akcie"
 
 msgid "Draft"
 msgstr "Koncept"
@@ -429,9 +433,6 @@ msgstr "Stránka \"%(title)s\" bola zamietnutá"
 
 msgid "You can preview the page here:"
 msgstr "Tu môžete vidieť stránku:"
-
-msgid "Page privacy"
-msgstr "Nastavenie súkromia stránky"
 
 msgid "This page has been made private by a parent page."
 msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou."
@@ -519,15 +520,6 @@ msgstr "Kopírovať túto stránku"
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
-msgid "User"
-msgstr "Používateľ"
-
-msgid "Live version"
-msgstr "Živá verzia"
-
-msgid "Current draft"
-msgstr "Aktuálny koncept"
-
 msgid "Configure a site now."
 msgstr "Nastavte webové sídlo."
 
@@ -590,6 +582,12 @@ msgstr "Stránky"
 msgid "Locked"
 msgstr "Zamknuté"
 
+msgid "Name"
+msgstr "Názov"
+
+msgid "User"
+msgstr "Používateľ"
+
 msgid "Edit this item"
 msgstr "Upraviť položku"
 
@@ -597,17 +595,20 @@ msgstr "Upraviť položku"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
 
+msgid "Continue"
+msgstr "Pokračovať"
+
 msgid "Download CSV"
 msgstr "Stiahnuť CSV"
 
 msgid "Filter"
 msgstr "Filter"
 
-msgid "Root"
-msgstr "Koreň"
-
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
+
+msgid "Minimap"
+msgstr "Minimapa"
 
 msgid "Unlocked"
 msgstr "Odomknuté"
@@ -681,6 +682,12 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 
 msgid "Home"
 msgstr "Domov"
+
+msgid "Live version"
+msgstr "Živá verzia"
+
+msgid "Current draft"
+msgstr "Aktuálny koncept"
 
 #, python-format
 msgid "Edit '%(title)s'"

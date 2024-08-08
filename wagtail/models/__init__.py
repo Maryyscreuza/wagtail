@@ -17,7 +17,8 @@ import posixpath
 import uuid
 from io import StringIO
 from typing import TYPE_CHECKING
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
+from warnings import warn
 
 from django import forms
 from django.conf import settings
@@ -95,6 +96,7 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.url_routing import RouteResult
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import (  # noqa: F401
@@ -191,7 +193,7 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_streamfield_names(model_class):
     return tuple(
         field.name
@@ -700,7 +702,7 @@ class PreviewableMixin:
         """
         url = self._get_dummy_header_url(original_request)
         if url:
-            url_info = urlparse(url)
+            url_info = urlsplit(url)
             hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or (443 if url_info.scheme == "https" else 80)
@@ -1289,8 +1291,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     promote_panels = []
     settings_panels = []
 
+    # Privacy options for page
+    private_page_options = ["password", "groups", "login"]
+
     @staticmethod
-    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+    def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
         Find the page route for the given HTTP request object, and URL path. The route
         result (`page`, `args`, and `kwargs`) will be cached via
@@ -1317,7 +1322,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return request._wagtail_route_for_request
 
     @staticmethod
-    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+    def find_for_request(request: HttpRequest, path: str) -> Page | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via `request._wagtail_route_for_request`
@@ -1668,6 +1673,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             try:
                 subpage = self.get_children().get(slug=child_slug)
+                # Cache the parent page on the subpage to avoid another db query
+                # Treebeard's get_parent will use the `_cached_parent_obj` attribute if it exists
+                # And update = False
+                setattr(subpage, "_cached_parent_obj", self)
+
             except Page.DoesNotExist:
                 raise Http404
 
@@ -1810,7 +1820,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This is called by Wagtail whenever a page with aliases is published.
 
         :param revision: The revision of the original page that we are updating to (used for logging purposes)
-        :type revision: PageRevision, optional
+        :type revision: Revision, Optional
         """
         specific_self = self.specific
 
@@ -2380,8 +2390,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     ):
         """
         Copies a given page
-        :param log_action flag for logging the action. Pass None to skip logging.
-            Can be passed an action string. Defaults to 'wagtail.copy'
+
+        :param log_action: flag for logging the action. Pass None to skip logging. Can be passed an action string. Defaults to 'wagtail.copy'
         """
         return CopyPageAction(
             self,
@@ -2592,9 +2602,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
-    password_required_template = getattr(
-        settings, "PASSWORD_REQUIRED_TEMPLATE", "wagtailcore/password_required.html"
-    )
+    password_required_template = None
 
     def serve_password_required_response(self, request, form, action_url):
         """
@@ -2604,10 +2612,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             (and zero or more hidden fields that also need to be output on the template)
         action_url = URL that this form should be POSTed to
         """
+
+        password_required_template = self.password_required_template
+
+        if not password_required_template:
+            password_required_template = getattr(
+                settings,
+                "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+                "wagtailcore/password_required.html",
+            )
+
+            if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
+                warn(
+                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                    category=RemovedInWagtail70Warning,
+                )
+
+                password_required_template = getattr(
+                    settings,
+                    "PASSWORD_REQUIRED_TEMPLATE",
+                    password_required_template,
+                )
+
         context = self.get_context(request)
         context["form"] = form
         context["action_url"] = action_url
-        return TemplateResponse(request, self.password_required_template, context)
+        return TemplateResponse(request, password_required_template, context)
 
     def with_content_json(self, content):
         """
@@ -3198,10 +3228,13 @@ class PagePermissionTester:
 
     def can_reorder_children(self):
         """
-        Keep reorder permissions the same as publishing, since it immediately affects published pages
-        (and the use-cases for a non-admin needing to do it are fairly obscure...)
+        Reorder permission checking is similar to publishing a subpage, since it immediately
+        affects published pages. However, it shouldn't care about the 'creatability' of
+        page types, because the action only ever updates existing pages.
         """
-        return self.can_publish_subpage()
+        if not self.user.is_active:
+            return False
+        return self.user.is_superuser or ("publish" in self.permissions)
 
     def can_move(self):
         """
@@ -3221,7 +3254,17 @@ class PagePermissionTester:
 
         # reject moves that are forbidden by subpage_types / parent_page_types rules
         # (these rules apply to superusers too)
-        if not self.page.specific.can_move_to(destination):
+        # – but only check this if the page is not already under the target parent.
+        # If it already is, then the user is just reordering the page, and we want
+        # to allow it even if the page currently violates the subpage_type /
+        # parent_page_type rules. This can happen if it was either created before
+        # the rules were specified, or it was done programmatically (e.g. to
+        # predefine a set of pages and disallow the creation of new subpages by
+        # setting subpage_types = []).
+
+        if (not self.page.is_child_of(destination)) and (
+            not self.page.specific.can_move_to(destination)
+        ):
             return False
 
         # shortcut the trivial 'everything' / 'nothing' permissions
@@ -4493,6 +4536,9 @@ class PageLogEntryManager(BaseLogEntryManager):
             )
 
         return PageLogEntry.objects.filter(q)
+
+    def for_instance(self, instance):
+        return self.filter(page=instance)
 
 
 class PageLogEntry(BaseLogEntry):

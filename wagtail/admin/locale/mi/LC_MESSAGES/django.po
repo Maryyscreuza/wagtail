@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -74,6 +74,9 @@ msgstr "Te rā ki"
 msgid "All"
 msgstr "Katoa"
 
+msgid "Collection"
+msgstr "Kohikohinga"
+
 msgid "Preferred language"
 msgstr "Te reo mariu"
 
@@ -110,9 +113,6 @@ msgstr "Haha-a-karangatanga"
 
 msgid "Search"
 msgstr "Haha"
-
-msgid "Collection"
-msgstr "Kohikohinga"
 
 msgid "Parent"
 msgstr "Mātua"
@@ -350,9 +350,6 @@ msgstr "Tāpiri he hono mōwaho"
 msgid "Add a phone link"
 msgstr "Tāpiri he hono waea"
 
-msgid "Collection privacy"
-msgstr "Kohikohinga noho matatapu"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "He paraiweti tēnei kohikohinga mai i te matua kohikohinga."
 
@@ -377,14 +374,17 @@ msgstr "Kohikohinga noho matatapu. Tūnga i te wā nei: Matatapu"
 msgid "Private"
 msgstr "Matatapu"
 
-msgid "Name"
-msgstr "Ingoa"
-
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
+
+msgid "Comment"
+msgstr "Tākupu"
+
+msgid "Actions"
+msgstr "Hohenga"
 
 msgid "Update"
 msgstr "Whakahou"
@@ -401,9 +401,6 @@ msgstr ""
 
 msgid "Edit this page"
 msgstr "Whakarerekē i tēnei whārangi"
-
-msgid "Actions"
-msgstr "Hohenga"
 
 msgid "Unlock"
 msgstr "Iriti"
@@ -474,9 +471,6 @@ msgstr "Muku %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "E pirangi ana koe kī te mukuhia tēnei whārangi?"
 
-msgid "Comment"
-msgstr "Tākupu"
-
 msgid "Move up"
 msgstr "Mū ki runga"
 
@@ -489,6 +483,9 @@ msgstr "Momo"
 msgid "Pages"
 msgstr "Ngā whārangi"
 
+msgid "Name"
+msgstr "Ingoa"
+
 msgid "Workflow"
 msgstr "Mahi pūheke"
 
@@ -497,6 +494,9 @@ msgstr "Tīmata ki"
 
 msgid "Completed at"
 msgstr "I whakatutuki ki"
+
+msgid "Continue"
+msgstr "Tonu"
 
 msgid "Filter"
 msgstr "Tātari"
@@ -531,6 +531,12 @@ msgstr "Kāhore ē timata"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s mai rā anō"
+
+msgid "Undo"
+msgstr "Whakakore"
+
+msgid "Redo"
+msgstr "Tukurua"
 
 msgid "Password"
 msgstr "Kupu muna"

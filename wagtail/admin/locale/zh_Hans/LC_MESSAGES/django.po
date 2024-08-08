@@ -21,6 +21,7 @@
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
+# Yu Cheng, 2024
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2021
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
@@ -30,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: 蚂蚁先生 <pzf_karl@hotmail.com>, 2023\n"
+"Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +99,15 @@ msgstr "区域"
 msgid "All"
 msgstr "所有"
 
+msgid "Collection"
+msgstr "集合"
+
+msgid "Tag"
+msgstr "标签"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "按十个最流行的标签进行过滤。"
+
 msgid "Preferred language"
 msgstr "首选语言"
 
@@ -141,9 +151,6 @@ msgstr "搜索"
 
 msgid "All collections"
 msgstr "所有集合"
-
-msgid "Collection"
-msgstr "集合"
 
 msgid "Parent"
 msgstr "上一级"
@@ -249,6 +256,21 @@ msgstr "标题链接 '%(page_slug)s' 已经被父页面使用"
 
 msgid "Select a new parent for this page."
 msgstr "为此页选择一个新的父页面"
+
+msgid "Parent page"
+msgstr "上一级页面"
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "您无权在“%(page_title)s”下创建页面。"
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr "您无法在“%(page_title)s”下创建“%(page_type)s”类型页面。"
+
+msgid "Search…"
+msgstr "搜索…"
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -577,9 +599,6 @@ msgstr "查看'%(title)s'的子页面"
 msgid "Explore"
 msgstr "浏览"
 
-msgid "Collection privacy"
-msgstr "集合私有设置"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "这个集合已经被父集合设为私有。"
 
@@ -614,9 +633,6 @@ msgstr "私有"
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "集合非空，不能删除，它包含有："
-
-msgid "Name"
-msgstr "名字"
 
 #, python-format
 msgid ""
@@ -664,8 +680,22 @@ msgstr ""
 "您提交审核的%(model_name)s被工作流<strong>%(workflow)s</strong>中的任务"
 "<strong>%(task)s</strong>标记为需要更改。"
 
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "您还想发布这个 %(model_name)s 吗？"
+
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Comment"
+msgstr "评论"
+
+msgid "Actions"
+msgstr "动作"
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "没有可显示的 %(model_name)s。"
 
 msgid "Update"
 msgstr "更新"
@@ -706,9 +736,6 @@ msgstr "锁定于"
 
 msgid "Edit this page"
 msgstr "编辑此页"
-
-msgid "Actions"
-msgstr "动作"
 
 msgid "Unlock"
 msgstr "解锁"
@@ -932,9 +959,6 @@ msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
 msgstr "页面“%(title)s”已提交到工作流“%(workflow)s”以进行审核。"
-
-msgid "Page privacy"
-msgstr "页面私有设置"
 
 msgid "This page has been made private by a parent page."
 msgstr "此页面已被父节点设置为私有。"
@@ -1175,31 +1199,6 @@ msgstr "编辑原始页面"
 msgid "Convert this alias into an ordinary page"
 msgstr "将这个别名转换成常规页面"
 
-#, python-format
-msgid "Page history for %(subtitle)s"
-msgstr "%(subtitle)s的页面历史"
-
-msgid "Action"
-msgstr "行为"
-
-msgid "User"
-msgstr "用户"
-
-msgid "Date / Time"
-msgstr "日期/时间"
-
-msgid "Comment"
-msgstr "评论"
-
-msgid "Live version"
-msgstr "发布版本"
-
-msgid "Current draft"
-msgstr "当前草稿"
-
-msgid "No log entries found."
-msgstr "未找到日志记录"
-
 msgid "Select all pages in listing"
 msgstr "选择列表中的所有页面"
 
@@ -1229,6 +1228,9 @@ msgstr "排序"
 msgid "Enable ordering of child pages"
 msgstr "启用子页面排序"
 
+msgid "Search the whole site"
+msgstr "搜索整个网站"
+
 msgid "Sites menu"
 msgstr "站点菜单"
 
@@ -1249,15 +1251,6 @@ msgstr "确认"
 
 msgid "Add child page"
 msgstr "添加子页面"
-
-msgid "Review this version"
-msgstr "审核这个修订"
-
-msgid "Compare with current version"
-msgstr "与当前版本进行比较"
-
-msgid "Cancel scheduled publish"
-msgstr "取消预定的发布"
 
 msgid "Page types"
 msgstr "页面类型"
@@ -1312,8 +1305,17 @@ msgstr "没有页面符合此报告的条件。"
 msgid "Updated"
 msgstr "已更新"
 
+msgid "App"
+msgstr "应用"
+
 msgid "Pages"
 msgstr "页面"
+
+msgid "Last edited page"
+msgstr "最后编辑的页面"
+
+msgid "Last edit"
+msgstr "最后编辑"
 
 msgid "Locking status"
 msgstr "锁定状态"
@@ -1328,11 +1330,26 @@ msgstr "已锁定"
 msgid "No locked pages found."
 msgstr "找不到已锁定的页面。"
 
+msgid "No page types found."
+msgstr "未找到页面类型。"
+
+msgid "Name"
+msgstr "名字"
+
+msgid "Action"
+msgstr "行为"
+
+msgid "User"
+msgstr "用户"
+
+msgid "Date / Time"
+msgstr "日期/时间"
+
 msgid "Edit this item"
 msgstr "编辑此项"
 
-msgid "By Task"
-msgstr "按任务"
+msgid "No log entries found."
+msgstr "未找到日志记录"
 
 msgid "Workflow"
 msgstr "工作流"
@@ -1349,11 +1366,14 @@ msgstr "开始于"
 msgid "Incomplete task"
 msgstr "未完成的任务"
 
-msgid "By Workflow"
-msgstr "按工作流"
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "尚未提交任何页面/片段进行审核"
 
 msgid "Completed at"
 msgstr "完成于"
+
+msgid "Clear"
+msgstr "清除"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1367,6 +1387,9 @@ msgstr "面包屑导航"
 
 msgid "Close dialog"
 msgstr "关闭对话框"
+
+msgid "Continue"
+msgstr "继续"
 
 msgid "Download XLSX"
 msgstr "下载XLSX"
@@ -1383,14 +1406,26 @@ msgstr "应用过滤器"
 msgid "Add comment"
 msgstr "添加评论"
 
+msgid "Show filters"
+msgstr "显示过滤器"
+
+msgid "Filter by"
+msgstr "过滤"
+
 msgid "Back"
 msgstr "返回"
 
 msgid "History"
 msgstr "历史"
 
-msgid "Root"
-msgstr "根"
+msgid "Keyboard shortcuts"
+msgstr "键盘快捷键"
+
+msgid "All keyboard shortcuts"
+msgstr "所有键盘快捷键"
+
+msgid "Keyboard shortcut"
+msgstr "快捷键"
 
 msgid "Current page status:"
 msgstr "当前页面状态："
@@ -1429,6 +1464,9 @@ msgstr "否，不取消发布计划"
 msgid "Other searches"
 msgstr "其它搜索"
 
+msgid "Minimap"
+msgstr "小地图"
+
 msgid "Side panels"
 msgstr "边栏"
 
@@ -1464,6 +1502,9 @@ msgstr "页面可见性: "
 
 msgid "Once live anyone can view"
 msgstr "一旦发布，任何人可看"
+
+msgid "Not visible to the public"
+msgstr "对外不可见"
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有设置也会应用到此页面的所有子页面。"
@@ -1638,23 +1679,14 @@ msgstr "页面"
 msgid "Assign to another page"
 msgstr "分配到另一页面"
 
-msgid "Hide disabled workflows"
-msgstr "隐藏已禁用的工作流"
-
-msgid "Show disabled workflows"
-msgstr "显示禁用的工作流"
-
-msgid "Used by"
-msgstr "被用于"
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "步进数%(step_number)s"
 
 #, python-format
 msgid "1 page"
 msgid_plural "%(counter)s pages"
 msgstr[0] "%(counter)s 页面"
-
-#, python-format
-msgid "Step %(step_number)s"
-msgstr "步进数%(step_number)s"
 
 #, python-format
 msgid ""
@@ -1700,12 +1732,6 @@ msgid ""
 msgstr ""
 "为什么不用 <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>马"
 "上创建一个</a>呢？"
-
-msgid "Hide disabled tasks"
-msgstr "隐藏禁用的任务"
-
-msgid "Show disabled tasks"
-msgstr "显示禁用的任务"
 
 #, python-format
 msgid ""
@@ -1762,6 +1788,24 @@ msgstr "%(time_period)s 之前"
 
 msgid "Log out"
 msgstr "注销"
+
+msgid "Undo"
+msgstr "撤销"
+
+msgid "Redo"
+msgstr "重复"
+
+msgid "Bold"
+msgstr "粗体"
+
+msgid "Italic"
+msgstr "斜体"
+
+msgid "Superscript"
+msgstr "上标"
+
+msgid "Subscript"
+msgstr "下标"
 
 msgid "Toggle status"
 msgstr "状态开关"
@@ -1841,6 +1885,21 @@ msgstr "确定删除此集合？"
 msgid "Home"
 msgstr "首页"
 
+msgid "Live version"
+msgstr "发布版本"
+
+msgid "Current draft"
+msgstr "当前草稿"
+
+msgid "Review this version"
+msgstr "审核这个修订"
+
+msgid "Compare with current version"
+msgstr "与当前版本进行比较"
+
+msgid "Cancel scheduled publish"
+msgstr "取消预定的发布"
+
 msgid "Workflow progress"
 msgstr "工作流进展"
 
@@ -1862,6 +1921,10 @@ msgstr "检查"
 #, python-format
 msgid "Delete '%(title)s'"
 msgstr "删除“%(title)s”"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "“%(title)s”的更多选项"
 
 msgid "Editing"
 msgstr "正在编辑"
@@ -2075,12 +2138,6 @@ msgstr "页面无法保存，已被锁定。"
 msgid "The page could not be saved due to validation errors"
 msgstr "页面无法保存。出现验证错误。"
 
-msgid "Hide commenting actions"
-msgstr "隐藏评论动作"
-
-msgid "Page history"
-msgstr "页面历史"
-
 msgid "Owner"
 msgstr "所有者"
 
@@ -2111,6 +2168,9 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "你正在查看此页面的上一版本，创建时间：<b>%(created_at)s</b> 创建人： %(user)s"
+
+msgid "Page history"
+msgstr "页面历史"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
@@ -2179,6 +2239,9 @@ msgstr "请求人"
 
 msgid "Add a workflow"
 msgstr "添加一个工作流"
+
+msgid "Used by"
+msgstr "被用于"
 
 msgid "New workflow"
 msgstr "新建工作流"
@@ -2295,20 +2358,8 @@ msgstr "编号列表"
 msgid "Blockquote"
 msgstr "块引用"
 
-msgid "Bold"
-msgstr "粗体"
-
-msgid "Italic"
-msgstr "斜体"
-
 msgid "Link"
 msgstr "链接"
-
-msgid "Superscript"
-msgstr "上标"
-
-msgid "Subscript"
-msgstr "下标"
 
 msgid "Strikethrough"
 msgstr "中划线"

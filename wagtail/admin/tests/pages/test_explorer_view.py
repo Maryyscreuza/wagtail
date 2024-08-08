@@ -133,13 +133,15 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
     def test_explore_root_shows_icon(self):
         response = self.client.get(reverse("wagtailadmin_explore_root"))
         self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
 
         # Administrator (or user with add_site permission) should see the
         # sites link with its icon
-        self.assertContains(
-            response,
-            '<a href="/admin/sites/" title="Sites menu"><svg',
-        )
+        url = reverse("wagtailsites:index")
+        link = soup.select_one(f'td a[href="{url}"]')
+        self.assertIsNotNone(link)
+        icon = link.select_one("svg use[href='#icon-site']")
+        self.assertIsNotNone(icon)
 
     def test_ordering(self):
         response = self.client.get(
@@ -394,7 +396,11 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_pages()
@@ -404,7 +410,14 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
     def test_no_pagination_with_custom_ordering(self):
         self.make_pages()

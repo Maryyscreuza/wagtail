@@ -4,16 +4,16 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2021
+# Martin Sandström <martin@marteinn.se>, 2020-2021,2024
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 13:51+0000\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +115,21 @@ msgstr "Välj din nuvarande tidszon"
 msgid "profile picture"
 msgstr "profilbild"
 
+msgid "System default"
+msgstr "Systeminställningar"
+
+msgid "Light"
+msgstr "Ljust"
+
+msgid "Dark"
+msgstr "Mörkt"
+
+msgid "admin theme"
+msgstr "admintema"
+
+msgid "Default"
+msgstr "Standard"
+
 msgid "user profile"
 msgstr "användarprofil"
 
@@ -211,9 +226,6 @@ msgstr "Är du säker på att du vill radera denna grupp?"
 msgid "Add group"
 msgstr "Lägg till grupp"
 
-msgid "View users in this group"
-msgstr "Visa användare i denna grupp"
-
 msgid "Save"
 msgstr "Spara"
 
@@ -243,6 +255,21 @@ msgstr "Lås upp"
 
 msgid "Custom permissions"
 msgstr "Anpassade rättigheter"
+
+msgid "Toggle all"
+msgstr "Växla alla"
+
+msgid "Toggle all add permissions"
+msgstr "Växla alla lägg till rättigheter"
+
+msgid "Toggle all change permissions"
+msgstr "Växla alla redigera rättigheter"
+
+msgid "Toggle all delete permissions"
+msgstr "Växla alla radera rättigheter"
+
+msgid "Toggle all publish permissions"
+msgstr "Växla alla publicera rättigheter"
 
 msgid "Other permissions"
 msgstr "Andra rättigheter"
@@ -287,42 +314,12 @@ msgid "Select all users in listing"
 msgstr "Välj alla användare i lista"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Ledsen, inga användare matchar \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"The %(group_name)s group has no users configured. Why not <a "
-"href=\"%(wagtailusers_add_url)s\">add some</a>?"
-msgstr ""
-"Gruppen %(group_name)s har inga användare konfigurerade. Varför inte <a "
-"href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
-
-#, python-format
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 "Det finns inga användare konfigurerade. Varför inte <a "
 "href=\"%(wagtailusers_add_url)s\">skapa några</a>?"
-
-msgid "Username"
-msgstr "Användarnamn"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Last Login"
-msgstr "Senaste inloggning"
-
-msgid "Admin"
-msgstr "Administratör"
-
-msgid "Active"
-msgstr "Aktiv"
-
-msgid "Inactive"
-msgstr "Inaktiv"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -345,6 +342,15 @@ msgid "%(num_parent_objects)d user has been deleted"
 msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] "%(num_parent_objects)d användare har raderats"
 msgstr[1] "%(num_parent_objects)d användare har raderats"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Inactive"
+msgstr "Inaktiv"
+
+msgid "Mark as active"
+msgstr "Markera som aktiv"
 
 msgid "Change the active state for selected users"
 msgstr "Ändra aktiv status för valda användare"
@@ -381,15 +387,36 @@ msgstr "Grupp '%(object)s' uppdaterad."
 msgid "The group could not be saved due to errors."
 msgstr "Gruppen kunde inte sparas p.g.a. fel."
 
+msgid "View users in this group"
+msgstr "Visa användare i denna grupp"
+
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupp '%(object)s' raderad."
+
+msgid "Last login"
+msgstr "Senast inloggad"
+
+msgid "Group"
+msgstr "Grupp"
 
 msgid "Add a user"
 msgstr "Lägg till en användare"
 
 msgid "Users"
 msgstr "Användare"
+
+msgid "Username"
+msgstr "Användarnamn"
+
+msgid "Admin"
+msgstr "Administratör"
+
+msgid "Access level"
+msgstr "Behörighetsnivå"
+
+msgid "Status"
+msgstr "Status"
 
 #, python-format
 msgid "User '%(object)s' created."
@@ -405,6 +432,3 @@ msgstr "Användaren kunde inte sparas p.g.a. fel."
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr "Användare '%(object)s' raderad."
-
-msgid "Edit"
-msgstr "Redigera"

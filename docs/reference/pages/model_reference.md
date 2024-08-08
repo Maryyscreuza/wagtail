@@ -156,7 +156,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
 ```{eval-rst}
 .. class:: Page
-    :noindex:
+    :no-index:
 
     .. automethod:: get_specific
 
@@ -185,9 +185,9 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: route
 
     .. automethod:: serve
-    
+
     .. automethod:: route_for_request
-    
+
     .. automethod:: find_for_request
 
     .. autoattribute:: context_object_name
@@ -311,7 +311,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. attribute:: password_required_template
 
-        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
+        Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
 
     .. attribute:: is_creatable
 
@@ -324,6 +324,33 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. attribute:: max_count_per_parent
 
         Controls the maximum number of pages of this type that can be created under any one parent page.
+
+    .. attribute:: private_page_options
+
+        Controls what privacy options are available for the page type.
+
+       The following options are available:
+
+       - ``'password'`` - Can restrict to use a shared password
+       - ``'groups'`` - Can restrict to users in specific groups
+       - ``'login'`` - Can restrict to logged in users
+
+        .. code-block:: python
+
+            class BreadPage(Page):
+                ...
+
+                # default 
+                private_page_options = ['password', 'groups', 'login']
+
+                # disable shared password
+                private_page_options = ['groups', 'login']
+
+                # only shared password
+                private_page_options = ['password']
+
+                # no privacy options for this page model
+                private_page_options = []
 
     .. attribute:: exclude_fields_in_copy
 
@@ -347,6 +374,8 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: with_content_json
 
     .. automethod:: save
+
+    .. automethod:: copy
 
     .. automethod:: create_alias
 
@@ -415,7 +444,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 
 ```{eval-rst}
 .. class:: Site
-    :noindex:
+    :no-index:
 
     .. automethod:: find_for_request
 
@@ -437,7 +466,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 ## `Locale`
 
 The `Locale` model defines the set of languages and/or locales that can be used on a site.
-Each `Locale` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
+Each `Locale` record corresponds to a "language code" defined in the {ref}`wagtail_content_languages_setting` setting.
 
 Wagtail will initially set up one `Locale` to act as the default language for all existing content.
 This first locale will automatically pick the value from `WAGTAIL_CONTENT_LANGUAGES` that most closely matches the site primary language code defined in `LANGUAGE_CODE`.
@@ -459,7 +488,6 @@ database queries making them unable to be edited or viewed.
 
 ```{eval-rst}
 .. class:: Locale
-    :noindex:
 
     .. autoattribute:: language_code
 
@@ -494,7 +522,7 @@ Pages already include this mixin, so there is no need to add it.
 
     .. attribute:: locale
 
-        (Foreign Key to :class:`~wagtail.models.Locale`)
+        (Foreign Key to :class:`wagtail.models.Locale`)
 
         For pages, this defaults to the locale of the parent page.
 
@@ -514,15 +542,11 @@ This is currently enforced via {attr}`~django.db.models.Options.unique_together`
 If your model defines a [`Meta` class](inv:django#ref/models/options) (either with a new definition or inheriting `TranslatableMixin.Meta` explicitly), be mindful when setting `unique_together` or {attr}`~django.db.models.Options.constraints`. Ensure that there is either a `unique_together` or a `UniqueConstraint` (not both) on `translation_key` and `locale`. There is a system check for this.
 ```
 
-```{versionchanged} 6.0
-The system check for `translation_key` and `locale` unique key constraint now allows a `UniqueConstraint` in `Meta.constraints` instead of `unique_together` in `Meta`.
-```
-
 ### Methods and properties
 
 ```{eval-rst}
 .. class:: TranslatableMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: get_translations
 
@@ -583,7 +607,7 @@ Pages already include this mixin, so there is no need to add it.
 
 ```{eval-rst}
 .. class:: RevisionMixin
-    :noindex:
+    :no-index:
 
     .. autoattribute:: revisions
 
@@ -641,7 +665,7 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages 
 
 ```{eval-rst}
 .. class:: DraftStateMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: publish
 
@@ -683,7 +707,7 @@ Pages already include this mixin, so there is no need to add it. See [](wagtails
 
 ```{eval-rst}
 .. class:: LockableMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: get_lock
 
@@ -781,11 +805,11 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ```{eval-rst}
 .. class:: Revision
-    :noindex:
+    :no-index:
 
     .. attribute:: objects
 
-        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a :meth:`~wagtail.models.RevisionsManager.for_instance` method that lets you query for revisions of a specific object.
+        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a ``wagtail.models.RevisionsManager.for_instance`` method that lets you query for revisions of a specific object.
 
         Example:
 
@@ -809,7 +833,7 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ```{eval-rst}
 .. class:: Revision
-    :noindex:
+    :no-index:
 
     .. automethod:: as_object
 
@@ -858,6 +882,12 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
     .. attribute:: password
 
         (text)
+
+    .. attribute:: restriction_type
+
+        (text)
+
+        Options: none, password, groups, login
 ```
 
 ## `Orderable` (abstract)
@@ -898,7 +928,7 @@ Workflows represent sequences of tasks that must be approved for an action to be
 
 ```{eval-rst}
 .. class:: Workflow
-    :noindex:
+    :no-index:
 
     .. automethod:: start
 
@@ -977,7 +1007,7 @@ Workflow states represent the status of a started workflow on an object.
 
 ```{eval-rst}
 .. class:: WorkflowState
-    :noindex:
+    :no-index:
 
     .. attribute:: STATUS_CHOICES
 
@@ -1034,7 +1064,7 @@ Tasks represent stages in a workflow that must be approved for the workflow to c
 
 ```{eval-rst}
 .. class:: Task
-    :noindex:
+    :no-index:
 
     .. autoattribute:: workflows
 
@@ -1141,7 +1171,7 @@ Task states store state information about the progress of a task on a particular
 
 ```{eval-rst}
 .. class:: TaskState
-    :noindex:
+    :no-index:
 
     .. attribute:: STATUS_CHOICES
 
@@ -1251,7 +1281,7 @@ An abstract base class that represents a record of an action performed on an obj
 
         The object title at the time of the entry creation
 
-        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to :meth:`~LogEntryManger.log_action`
+        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to ``LogEntryManager.log_action``
 
     .. attribute:: user
 
@@ -1295,7 +1325,7 @@ An abstract base class that represents a record of an action performed on an obj
 
 ```{eval-rst}
 .. class:: BaseLogEntry
-    :noindex:
+    :no-index:
 
     .. autoattribute:: user_display_name
 
